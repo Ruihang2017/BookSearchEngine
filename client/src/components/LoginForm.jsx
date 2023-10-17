@@ -12,16 +12,8 @@ import { useQuery } from '@apollo/client';
 
 const LoginForm = () => {
 
-  // const { loading, data } = useQuery(QUERY_USER);
-  // const userList = data?.user || [];
-
-  // console.log("userList");
-  // console.log(userList);
-
   const [userFormData, setUserFormData] = useState({ email: '', password: '' });
   const [login, { error, data }] = useMutation(LOGIN_USER);
-
-  // console.log(userFormData);
 
   const [validated] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
@@ -50,15 +42,6 @@ const LoginForm = () => {
       });
       Auth.login(data.login.token);
 
-      // if (!response.ok) {
-      //   throw new Error('something went wrong!');
-      // }
-
-      // const { token, user } = await response.json();
-      // console.log("user");
-
-      // console.log(user);
-      // Auth.login(token);
     } catch (err) {
       console.error(err);
       setShowAlert(true);
