@@ -7,10 +7,16 @@ import {
   Card,
   Row
 } from 'react-bootstrap';
+import { useQuery } from '@apollo/client';
 
 import Auth from '../utils/auth';
-import { saveBook, searchGoogleBooks } from '../utils/API';
-import { saveBookIds, getSavedBookIds } from '../utils/localStorage';
+import { searchGoogleBooks } from '../utils/API';
+// import { saveBook, searchGoogleBooks } from '../utils/API';
+
+import { QUERY_ME } from '../utils/queries';
+
+
+// import { saveBookIds, getSavedBookIds } from '../utils/localStorage';
 
 const SearchBooks = () => {
   // create state for holding returned google api data
@@ -18,14 +24,18 @@ const SearchBooks = () => {
   // create state for holding our search field data
   const [searchInput, setSearchInput] = useState('');
 
-  // create state to hold saved bookId values
-  const [savedBookIds, setSavedBookIds] = useState(getSavedBookIds());
+  // // create state to hold saved bookId values
+  // const [savedBookIds, setSavedBookIds] = useState(getSavedBookIds());
+
+  const { loading, data } = useQuery(QUERY_ME);
+  const savedBookIds = data?.me.savedBooks || [];
+
 
   // set up useEffect hook to save `savedBookIds` list to localStorage on component unmount
   // learn more here: https://reactjs.org/docs/hooks-effect.html#effects-with-cleanup
-  useEffect(() => {
-    return () => saveBookIds(savedBookIds);
-  });
+  // useEffect(() => {
+  //   return () => saveBookIds(savedBookIds);
+  // });
 
   // create method to search for books and set state on form submit
   const handleFormSubmit = async (event) => {
@@ -43,6 +53,8 @@ const SearchBooks = () => {
       }
 
       const { items } = await response.json();
+
+      console.log(items);
 
       const bookData = items.map((book) => ({
         bookId: book.id,
