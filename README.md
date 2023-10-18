@@ -1,45 +1,76 @@
+![GitHub](https://img.shields.io/badge/license-mit-blue)
 # BookSearchEngine
 
-GIVEN a book search engine
+## Deployed link (Heroku): 
+https://fast-mountain-02387-77bab3c3ff16.herokuapp.com/
 
-WHEN I load the search engine
-THEN I am presented with a menu with the options Search for Books and Login/Signup and an input field to search for books and a submit button
+## Table of Contents
+ - [Project Description](#project-description)
+ - [Features](#features)
+ - [Technologies Used](#technologies-used)
+ - [Usage](#usage) 
 
-WHEN I click on the Search for Books menu option
-THEN I am presented with an input field to search for books and a submit button
+## Project Description
 
-WHEN I am not logged in and enter a search term in the input field and click the submit button
-THEN I am presented with several search results, each featuring a book’s title, author, description, image, and a link to that book on the Google Books site
+ A fully functioning Google Books API search engine built with GraphQL API and Apollo Server. The app was built using the MERN stack, with a React front end, MongoDB database, and Node.js/Express.js server and API.
 
-WHEN I click on the Login/Signup menu option
-THEN a modal appears on the screen with a toggle between the option to log in or sign up
 
-WHEN the toggle is set to Signup
-THEN I am presented with three inputs for a username, an email address, and a password, and a signup button
+## Features
+- **Search for Books**
+   - Upon loading the search engine, users are presented with a menu offering two options: "Search for Books" and "Login/Signup."
+   - Users can enter a search term in the input field and click the submit button to search for books.
 
-WHEN the toggle is set to Login
-THEN I am presented with two inputs for an email address and a password and login button
+- **Search Results**
+   - When not logged in, users can view search results, including book titles, authors, descriptions, images, and links to the corresponding books on the Google Books site.
 
-WHEN I enter a valid email address and create a password and click on the signup button
-THEN my user account is created and I am logged in to the site
+- **Login/Signup**
+   - Clicking on the "Login/Signup" menu option opens a modal with options to log in or sign up.
 
-WHEN I enter my account’s email address and password and click on the login button
-THEN I the modal closes and I am logged in to the site
+- **Signup**
+   - In the signup mode, users can enter a username, email address, and password.
+   - Clicking the signup button creates a user account and logs the user into the site.
 
-WHEN I am logged in to the site
-THEN the menu options change to Search for Books, an option to see my saved books, and Logout
+- **Login**
+   - In the login mode, users can enter their email address and password.
+   - Clicking the login button logs the user into the site.
 
-WHEN I am logged in and enter a search term in the input field and click the submit button
-THEN I am presented with several search results, each featuring a book’s title, author, description, image, and a link to that book on the Google Books site and a button to save a book to my account
+- **User Authentication**
+   - When logged in, the menu options change to "Search for Books," "My Saved Books," and "Logout."
 
-WHEN I click on the Save button on a book
-THEN that book’s information is saved to my account
+- **My Saved Books**
+   - Logged-in users can see a list of books they have saved to their account.
+   - Each saved book includes the title, author, description, image, and a link to the book on Google Books.
+   - Users can also remove books from their account.
 
-WHEN I click on the option to see my saved books
-THEN I am presented with all of the books I have saved to my account, each featuring the book’s title, author, description, image, and a link to that book on the Google Books site and a button to remove a book from my account
+- **Save Books**
+   - When logged in, users can save books from the search results to their account.
 
-WHEN I click on the Remove button on a book
-THEN that book is deleted from my saved books list
+- **Logout**
+   - Clicking the "Logout" button logs the user out and returns them to the initial menu.
 
-WHEN I click on the Logout button
-THEN I am logged out of the site and presented with a menu with the options Search for Books and Login/Signup and an input field to search for books and a submit button 
+
+## Technologies Used
+
+- JavaScript
+- React.js
+- GraphQL
+- Node.js
+- MongoDB (or other database system)
+- JWT
+- express
+- Node
+- Bootstrap
+- Google Books API (for book information)
+
+
+## Usage
+
+To get started with the Book Search Engine, follow these steps:
+
+1. Load the application.
+2. Use the menu to search for books or access the login/signup functionality.
+3. Search for books by entering a search term and clicking the submit button.
+4. Create an account or log in.
+5. Save books to your account.
+6. View your saved books and remove them if desired.
+7. Log out when you're done.
