@@ -4,9 +4,12 @@ import {
   Card,
   Button,
   Row,
-  Col
+  Col,
+  Alert
 } from 'react-bootstrap';
-import { useQuery } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
+
+import { Navigate } from 'react-router-dom';
 
 // import { getMe, deleteBook } from '../utils/API';
 // import Auth from '../utils/auth';
@@ -17,48 +20,71 @@ import Auth from '../utils/auth';
 
 
 const SavedBooks = () => {
-  const [userData, setUserData] = useState({});
-
-  // const { username: userParam } = useParams();
-
-  const { loading, data } = useQuery(QUERY_ME);
-
-  const user = data?.me || {};
-
-  if (Auth.loggedIn() && Auth.getProfile().data.username === data.me.username) {
+  if (!Auth.loggedIn()) {
+    // Alert("Log in or sign up");
     return <Navigate to="/" />;
   }
+  // const [userData, setUserData] = useState({});
 
-  // // use this to determine if `useEffect()` hook needs to run again
+  const { loading, data } = useQuery(QUERY_ME);
+  const userData = data?.me || [];
+
+  const [deleteBook, { error }] = useMutation
+    (DELETE_BOOK, {
+      refetchQueries: [
+        QUERY_ME,
+        'me'
+      ]
+    });
+
   // const userDataLength = Object.keys(userData).length;
 
-  useEffect(() => {
-    if (data.me) {
-      setUserData(data.me);
-    }
-    // const getUserData = async () => {
-    //   try {
-    //     const token = Auth.loggedIn() ? Auth.getToken() : null;
+  // // update the userData when user is updated
+  // useEffect(() => {
+  //   if (user.savedBooks) {
+  //     setUserData(bookIds);
+  //     console.log(`setUserData ${bookIds}`)
 
-    //     if (!token) {
-    //       return false;
-    //     }
+  //   }
+  // }, [user])
+  // const { username: userParam } = useParams();
+  // console.log(1);
+  // if (userData.me) {
+  //   console.log(userData.me)
+  // }
+  // if (Auth.loggedIn() && Auth.getProfile().data.username === userData.me.username) {
+  //   return <Navigate to="/" />;
+  // }
 
-    //     const response = await getMe(token);
+  // // use this to determine if `useEffect()` hook needs to run again
 
-    //     if (!response.ok) {
-    //       throw new Error('something went wrong!');
-    //     }
+  // useEffect(() => {
+  //   if (data.me) {
+  //     setUserData(data.me);
+  //   }
+  // const getUserData = async () => {
+  //   try {
+  //     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
-    //     const user = await response.json();
-    //     setUserData(user);
-    //   } catch (err) {
-    //     console.error(err);
-    //   }
-    // };
+  //     if (!token) {
+  //       return false;
+  //     }
 
-    // getUserData();
-  }, [data]);
+  //     const response = await getMe(token);
+
+  //     if (!response.ok) {
+  //       throw new Error('something went wrong!');
+  //     }
+
+  //     const user = await response.json();
+  //     setUserData(user);
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // };
+
+  // getUserData();
+  // }, [data]);
 
   // // create function that accepts the book's mongo _id value as param and deletes the book from the database
   // const handleDeleteBook = async (bookId) => {
@@ -83,11 +109,44 @@ const SavedBooks = () => {
   //     console.error(err);
   //   }
   // };
+  const handleDeleteBook = async (bookId) => {
+    try {
+      const token = Auth.loggedIn() ? Auth.getToken() : null;
 
-  // if data isn't here yet, say so
-  // if (!userDataLength) {
-  //   return <h2>LOADING...</h2>;
-  // }
+      if (!token) {
+        return false;
+      }
+
+      const { data } = await deleteBook({
+        variables: { bookId: bookId },
+      });
+
+    } catch (err) {
+      console.error(err);
+    }
+
+
+    // const token = Auth.loggedIn() ? Auth.getToken() : null;
+
+    // if (!token) {
+    //   return false;
+    // }
+
+    // try {
+    //   const response = await deleteBook(bookId, token);
+
+    //   if (!response.ok) {
+    //     throw new Error('something went wrong!');
+    //   }
+
+    //   const updatedUser = await response.json();
+    //   setUserData(updatedUser);
+    //   // upon success, remove book's id from localStorage
+    //   removeBookId(bookId);
+    // } catch (err) {
+    //   console.error(err);
+    // }
+  };
 
   if (loading) {
     return <div>Loading...</div>;
