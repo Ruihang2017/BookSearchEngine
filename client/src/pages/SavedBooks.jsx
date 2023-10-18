@@ -12,7 +12,7 @@ import { useQuery } from '@apollo/client';
 // import Auth from '../utils/auth';
 // import { removeBookId } from '../utils/localStorage';
 import { QUERY_ME } from '../utils/queries';
-import { DELETE_BOOK, } from '../utils/mutations';
+import { DELETE_BOOK } from '../utils/mutations';
 import Auth from '../utils/auth';
 
 
